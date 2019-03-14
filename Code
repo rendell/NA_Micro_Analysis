@@ -3,25 +3,33 @@ title: "NA Micro analysis"
 output: html_notebook
 ---
 
-This is an [R Markdown](http://rmarkdown.rstudio.com) Notebook. When you execute code within the notebook, the results appear beneath the code. 
-
-Try executing this chunk by clicking the *Run* button within the chunk or by placing your cursor inside it and pressing *Ctrl+Shift+Enter*. 
-
-
-```{r}
-metadata   <- read.csv("Meta_data.csv")
-data       <- read.csv("Herbynization.csv")
-```
-
 
 ```{r}
 library(dplyr)
 library(tidyr)
 ```
 
+
+```{r}
+metadata   <- read.csv("Meta_data.csv")
+data       <- read.csv("Herbynization.csv")
+stavaza    <- read.csv("StavazaR.csv")
+deflator   <-read.csv("Output_Deflator.csv")
+deflator <- select (deflator,-c(X,TAB.CAT,TAB.CAT_DESCRIPTION,ISIC_DESCRIPTION ))
+
+```
+
 ```{r}
 data$Code <- as.factor(data$Code)
 Joint          <- left_join(metadata,data,
                                     by=c("Cohiercode"="Code"))
+
+Joint          <- left_join(Joint,stavaza,
+                           by=c("Aruba_ISIC_I"="Isic"))
+
+rm(stavaza)
+
+Joint          <- left_join(Joint,deflator,
+                             by=c("Aruba_ISIC_I"="STATID"))
 
 ```
