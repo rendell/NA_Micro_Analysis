@@ -8,15 +8,18 @@ output: html_notebook
 library(dplyr)
 library(tidyr)
 library(networkD3)
+library("ggplot2")
+theme_set(theme_bw())
+library("sf")
 
 ```
 
 
 ```{r}
-metadata   <- read.csv("Meta_data.csv")
-data       <- read.csv("Herbynization.csv")
-stavaza    <- read.csv("StavazaR.csv")
-deflator   <-read.csv("Output_Deflator.csv")
+metadata   <- read.csv("Meta_data.csv", stringsAsFactors = FALSE)
+data       <- read.csv("Herbynization.csv", stringsAsFactors = FALSE)
+stavaza    <- read.csv("StavazaR.csv", stringsAsFactors = FALSE)
+deflator   <-read.csv("Output_Deflator.csv", stringsAsFactors = FALSE)
 deflator <- select (deflator,-c(X,TAB.CAT,TAB.CAT_DESCRIPTION,ISIC_DESCRIPTION ))
 
 ```
@@ -27,14 +30,46 @@ Joint          <- left_join(metadata,data,
                                     by=c("Cohiercode"="Code"))
 
 Joint          <- left_join(Joint,stavaza,
-                           by=c("Aruba_ISIC_I"="Isic"))
+                           by=c("Aruba_ISIC"="Isic"))
 
 rm(stavaza)
 
 Joint          <- left_join(Joint,deflator,
-                             by=c("Aruba_ISIC_I"="STATID"))
+                             by=c("Aruba_ISIC"="STATID"))
 
 ```
+
+
+```{r}
+library(sp) 
+map <- readRDS("gadm36_ABW_0_sp.rds")
+
+library(plyr)
+Joint$X.coordinaten <- revalue(Joint$X.coordinaten, c("#N/A"="0"))
+Joint$Y.coordinaten <- revalue(Joint$Y.coordinaten, c("#N/A"="0"))
+
+Joint$X.coordinaten <- as.numeric(Joint$X.coordinaten)
+Joint$Y.coordinaten <- as.numeric(Joint$Y.coordinaten)
+
+i2 <- Joint %>% 
+  filter(Aruba_ISIC=="I_0100")
+
+
+
+
+map_data <- 
+  plot(map)+
+  geom_point(data=i2, 
+             aes(x=Y.coordinaten, y=X.coordinaten), colour="red", 
+             fill="red",pch=21, size=5, alpha=I(0.7), na.rm=TRUE)
+
+map_data
+
+```
+
+
+
+
 
 ```{r}
 nodes = data.frame("name" = 
