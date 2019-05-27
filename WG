@@ -1,0 +1,83 @@
+---
+title: "NA merging"
+output: html_notebook
+---
+Set working directory
+```{r}
+setwd("~/CBS NA/Berdrijsregister")
+```
+Read in data. Data obtained from Jose. 
+```{r}
+meta <- read.csv("2013_2018.csv", stringsAsFactors = FALSE)
+# Change from factor to numerical
+meta$CohierCode <- as.integer(meta$CohierCode)
+
+WG_2013_Q1 <- read.csv("WG_2013_Q1.csv", stringsAsFactors = FALSE)
+WG_2013_Q2 <- read.csv("WG_2013_Q2.csv", stringsAsFactors = FALSE)
+WG_2013_Q3 <- read.csv("WG_2013_Q3.csv", stringsAsFactors = FALSE)
+WG_2013_Q4 <- read.csv("WG_2013_Q4.csv", stringsAsFactors = FALSE)
+
+WN_2013_Q1 <- read.csv("WN_2013_Q1.csv", stringsAsFactors = FALSE)
+WN_2013_Q2 <- read.csv("WN_2013_Q2.csv", stringsAsFactors = FALSE)
+WN_2013_Q3 <- read.csv("WN_2013_Q3.csv", stringsAsFactors = FALSE)
+WN_2013_Q4 <- read.csv("WN_2013_Q4.csv", stringsAsFactors = FALSE)
+```
+
+# WN file manipulations
+Remove duplicates that meet the criteria that all variables are the same.
+```{r}
+WN_2013_Q1 <- WN_2013_Q1 %>% distinct()
+WN_2013_Q2 <- WN_2013_Q2 %>% distinct()
+WN_2013_Q3 <- WN_2013_Q3 %>% distinct()
+WN_2013_Q4 <- WN_2013_Q4 %>% distinct()
+
+WN_2013_Q1$Period <- "2013.01"
+WN_2013_Q2$Period <- "2013.02"
+WN_2013_Q3$Period <- "2013.03"
+WN_2013_Q4$Period <- "2013.04"
+```
+
+Create subset of meta
+```{r}
+meta_subset <- meta[c("Sector_Code_SVB",
+                                          "Rechtsvorm",
+                                          "Persoonsnr",
+                                          "Fiscale_Eenheid",
+                                          "Promising_Sector",
+                                          "Gac_code_SVB",
+                                          "GIS_adres_SVB",
+                                          "X_coord_SVB",
+                                          "Y_coord_SVB",
+                                          "Region",
+                                          "Aruba_ISIC_CBS",
+                                          "ISIC_rev4_CBS",
+                                          "Tourism_TSA",
+                                          "CohierCode"
+                                          )]
+```
+
+test left merge
+```{r}
+WN_2013_Q1 <- left_join(WN_2013_Q1,meta_subset,
+                        by=c("Code"="CohierCode")
+                        )
+WN_2013_Q2 <- left_join(WN_2013_Q2,meta_subset,
+                        by=c("Code"="CohierCode")
+                        )
+WN_2013_Q3 <- left_join(WN_2013_Q3,meta_subset,
+                        by=c("Code"="CohierCode")
+                        )
+WN_2013_Q4 <- left_join(WN_2013_Q4,meta_subset,
+                        by=c("Code"="CohierCode")
+                        )
+```
+
+Bin rows
+```{r}
+WN_merged <- bind_rows(WN_2013_Q1,
+                       WN_2013_Q2,
+                       WN_2013_Q3,
+                       WN_2013_Q4
+                       )
+
+```
