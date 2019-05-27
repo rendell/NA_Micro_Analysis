@@ -13,6 +13,37 @@ meta <- read.csv("2013_2018.csv", stringsAsFactors = FALSE)
 # Change from factor to numerical
 meta$CohierCode <- as.integer(meta$CohierCode)
 
+# WN
+WN_2013_Q1 <- read.csv("WN_2013_Q1.csv", stringsAsFactors = FALSE)
+WN_2013_Q2 <- read.csv("WN_2013_Q2.csv", stringsAsFactors = FALSE)
+WN_2013_Q3 <- read.csv("WN_2013_Q3.csv", stringsAsFactors = FALSE)
+WN_2013_Q4 <- read.csv("WN_2013_Q4.csv", stringsAsFactors = FALSE)
+
+WN_2014_Q1 <- read.csv("WN_2014_Q1.csv", stringsAsFactors = FALSE)
+WN_2014_Q2 <- read.csv("WN_2014_Q2.csv", stringsAsFactors = FALSE)
+WN_2014_Q3 <- read.csv("WN_2014_Q3.csv", stringsAsFactors = FALSE)
+WN_2014_Q4 <- read.csv("WN_2014_Q4.csv", stringsAsFactors = FALSE)
+
+WN_2015_Q1 <- read.csv("WN_2015_Q1.csv", stringsAsFactors = FALSE)
+WN_2015_Q2 <- read.csv("WN_2015_Q2.csv", stringsAsFactors = FALSE)
+WN_2015_Q3 <- read.csv("WN_2015_Q3.csv", stringsAsFactors = FALSE)
+WN_2015_Q4 <- read.csv("WN_2015_Q4.csv", stringsAsFactors = FALSE)
+
+WN_2016_Q1 <- read.csv("WN_2016_Q1.csv", stringsAsFactors = FALSE)
+WN_2016_Q2 <- read.csv("WN_2016_Q2.csv", stringsAsFactors = FALSE)
+WN_2016_Q3 <- read.csv("WN_2016_Q3.csv", stringsAsFactors = FALSE)
+WN_2016_Q4 <- read.csv("WN_2016_Q4.csv", stringsAsFactors = FALSE)
+
+WN_2017_Q1 <- read.csv("WN_2017_Q1.csv", stringsAsFactors = FALSE)
+WN_2017_Q2 <- read.csv("WN_2017_Q2.csv", stringsAsFactors = FALSE)
+WN_2017_Q3 <- read.csv("WN_2017_Q3.csv", stringsAsFactors = FALSE)
+WN_2017_Q4 <- read.csv("WN_2017_Q4.csv", stringsAsFactors = FALSE)
+
+WN_2018_Q1 <- read.csv("WN_2018_Q1.csv", stringsAsFactors = FALSE)
+WN_2018_Q2 <- read.csv("WN_2018_Q2.csv", stringsAsFactors = FALSE)
+WN_2018_Q3 <- read.csv("WN_2018_Q3.csv", stringsAsFactors = FALSE)
+WN_2018_Q4 <- read.csv("WN_2018_Q4.csv", stringsAsFactors = FALSE)
+
 # WG
 WG_2013_Q1 <- read.csv("WG_2013_Q1.csv", stringsAsFactors = FALSE)
 WG_2013_Q2 <- read.csv("WG_2013_Q2.csv", stringsAsFactors = FALSE)
@@ -44,36 +75,7 @@ WG_2018_Q2 <- read.csv("WG_2018_Q2.csv", stringsAsFactors = FALSE)
 WG_2018_Q3 <- read.csv("WG_2018_Q3.csv", stringsAsFactors = FALSE)
 WG_2018_Q4 <- read.csv("WG_2018_Q4.csv", stringsAsFactors = FALSE)
 
-# WN
-WN_2013_Q1 <- read.csv("WN_2013_Q1.csv", stringsAsFactors = FALSE)
-WN_2013_Q2 <- read.csv("WN_2013_Q2.csv", stringsAsFactors = FALSE)
-WN_2013_Q3 <- read.csv("WN_2013_Q3.csv", stringsAsFactors = FALSE)
-WN_2013_Q4 <- read.csv("WN_2013_Q4.csv", stringsAsFactors = FALSE)
 
-WN_2014_Q1 <- read.csv("WN_2014_Q1.csv", stringsAsFactors = FALSE)
-WN_2014_Q2 <- read.csv("WN_2014_Q2.csv", stringsAsFactors = FALSE)
-WN_2014_Q3 <- read.csv("WN_2014_Q3.csv", stringsAsFactors = FALSE)
-WN_2014_Q4 <- read.csv("WN_2014_Q4.csv", stringsAsFactors = FALSE)
-
-WN_2015_Q1 <- read.csv("WN_2015_Q1.csv", stringsAsFactors = FALSE)
-WN_2015_Q2 <- read.csv("WN_2015_Q2.csv", stringsAsFactors = FALSE)
-WN_2015_Q3 <- read.csv("WN_2015_Q3.csv", stringsAsFactors = FALSE)
-WN_2015_Q4 <- read.csv("WN_2015_Q4.csv", stringsAsFactors = FALSE)
-
-WN_2016_Q1 <- read.csv("WN_2016_Q1.csv", stringsAsFactors = FALSE)
-WN_2016_Q2 <- read.csv("WN_2016_Q2.csv", stringsAsFactors = FALSE)
-WN_2016_Q3 <- read.csv("WN_2016_Q3.csv", stringsAsFactors = FALSE)
-WN_2016_Q4 <- read.csv("WN_2016_Q4.csv", stringsAsFactors = FALSE)
-
-WN_2017_Q1 <- read.csv("WN_2017_Q1.csv", stringsAsFactors = FALSE)
-WN_2017_Q2 <- read.csv("WN_2017_Q2.csv", stringsAsFactors = FALSE)
-WN_2017_Q3 <- read.csv("WN_2017_Q3.csv", stringsAsFactors = FALSE)
-WN_2017_Q4 <- read.csv("WN_2017_Q4.csv", stringsAsFactors = FALSE)
-
-WN_2018_Q1 <- read.csv("WN_2018_Q1.csv", stringsAsFactors = FALSE)
-WN_2018_Q2 <- read.csv("WN_2018_Q2.csv", stringsAsFactors = FALSE)
-WN_2018_Q3 <- read.csv("WN_2018_Q3.csv", stringsAsFactors = FALSE)
-WN_2018_Q4 <- read.csv("WN_2018_Q4.csv", stringsAsFactors = FALSE)
 ```
 
 # WN file manipulations
@@ -174,6 +176,71 @@ WN_2013_Q3 <- left_join(WN_2013_Q3,meta_subset,
 WN_2013_Q4 <- left_join(WN_2013_Q4,meta_subset,
                         by=c("Code"="CohierCode")
                         )
+
+WN_2014_Q1 <- left_join(WN_2014_Q1,meta_subset,
+                        by=c("Code"="CohierCode")
+                        )
+WN_2014_Q2 <- left_join(WN_2014_Q2,meta_subset,
+                        by=c("Code"="CohierCode")
+                        )
+WN_2014_Q3 <- left_join(WN_2014_Q3,meta_subset,
+                        by=c("Code"="CohierCode")
+                        )
+WN_2014_Q4 <- left_join(WN_2014_Q4,meta_subset,
+                        by=c("Code"="CohierCode")
+                        )
+
+WN_2015_Q1 <- left_join(WN_2015_Q1,meta_subset,
+                        by=c("Code"="CohierCode")
+                        )
+WN_2015_Q2 <- left_join(WN_2015_Q2,meta_subset,
+                        by=c("Code"="CohierCode")
+                        )
+WN_2015_Q3 <- left_join(WN_2015_Q3,meta_subset,
+                        by=c("Code"="CohierCode")
+                        )
+WN_2015_Q4 <- left_join(WN_2015_Q4,meta_subset,
+                        by=c("Code"="CohierCode")
+                        )
+
+WN_2016_Q1 <- left_join(WN_2016_Q1,meta_subset,
+                        by=c("Code"="CohierCode")
+                        )
+WN_2016_Q2 <- left_join(WN_2016_Q2,meta_subset,
+                        by=c("Code"="CohierCode")
+                        )
+WN_2016_Q3 <- left_join(WN_2016_Q3,meta_subset,
+                        by=c("Code"="CohierCode")
+                        )
+WN_2016_Q4 <- left_join(WN_2016_Q4,meta_subset,
+                        by=c("Code"="CohierCode")
+                        )
+
+WN_2017_Q1 <- left_join(WN_2017_Q1,meta_subset,
+                        by=c("Code"="CohierCode")
+                        )
+WN_2017_Q2 <- left_join(WN_2017_Q2,meta_subset,
+                        by=c("Code"="CohierCode")
+                        )
+WN_2017_Q3 <- left_join(WN_2017_Q3,meta_subset,
+                        by=c("Code"="CohierCode")
+                        )
+WN_2017_Q4 <- left_join(WN_2017_Q4,meta_subset,
+                        by=c("Code"="CohierCode")
+                        )
+
+WN_2018_Q1 <- left_join(WN_2018_Q1,meta_subset,
+                        by=c("Code"="CohierCode")
+                        )
+WN_2018_Q2 <- left_join(WN_2018_Q2,meta_subset,
+                        by=c("Code"="CohierCode")
+                        )
+WN_2018_Q3 <- left_join(WN_2018_Q3,meta_subset,
+                        by=c("Code"="CohierCode")
+                        )
+WN_2018_Q4 <- left_join(WN_2018_Q4,meta_subset,
+                        by=c("Code"="CohierCode")
+                        )
 ```
 
 Bin rows
@@ -181,16 +248,59 @@ Bin rows
 WN_merged <- bind_rows(WN_2013_Q1,
                        WN_2013_Q2,
                        WN_2013_Q3,
-                       WN_2013_Q4
+                       WN_2013_Q4,
+                       WN_2014_Q1,
+                       WN_2014_Q2,
+                       WN_2014_Q3,
+                       WN_2014_Q4,
+                       WN_2015_Q1,
+                       WN_2015_Q2,
+                       WN_2015_Q3,
+                       WN_2015_Q4,
+                       WN_2016_Q1,
+                       WN_2016_Q2,
+                       WN_2016_Q3,
+                       WN_2016_Q4,
+                       WN_2017_Q1,
+                       WN_2017_Q2,
+                       WN_2017_Q3,
+                       WN_2017_Q4,
+                       WN_2018_Q1,
+                       WN_2018_Q2,
+                       WN_2018_Q3,
+                       WN_2018_Q4,
                        )
 
 rm(WN_2013_Q1)
 rm(WN_2013_Q2)
 rm(WN_2013_Q3)
 rm(WN_2013_Q4)
+rm(WN_2014_Q1)
+rm(WN_2014_Q2)
+rm(WN_2014_Q3)
+rm(WN_2014_Q4)
+rm(WN_2015_Q1)
+rm(WN_2015_Q2)
+rm(WN_2015_Q3)
+rm(WN_2015_Q4)
+rm(WN_2016_Q1)
+rm(WN_2016_Q2)
+rm(WN_2016_Q3)
+rm(WN_2016_Q4)
+rm(WN_2017_Q1)
+rm(WN_2017_Q2)
+rm(WN_2017_Q3)
+rm(WN_2017_Q4)
+rm(WN_2018_Q1)
+rm(WN_2018_Q2)
+rm(WN_2018_Q3)
+rm(WN_2018_Q4)
+
+
 ```
 
 Create output
 ```{r}
 write.csv(WN_merged,file="WN_merged.csv")
 ```
+
