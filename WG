@@ -43,8 +43,10 @@ WN_2018_Q1 <- read.csv("WN_2018_Q1.csv", stringsAsFactors = FALSE)
 WN_2018_Q2 <- read.csv("WN_2018_Q2.csv", stringsAsFactors = FALSE)
 WN_2018_Q3 <- read.csv("WN_2018_Q3.csv", stringsAsFactors = FALSE)
 WN_2018_Q4 <- read.csv("WN_2018_Q4.csv", stringsAsFactors = FALSE)
+```
 
 # WG
+To be added later
 WG_2013_Q1 <- read.csv("WG_2013_Q1.csv", stringsAsFactors = FALSE)
 WG_2013_Q2 <- read.csv("WG_2013_Q2.csv", stringsAsFactors = FALSE)
 WG_2013_Q3 <- read.csv("WG_2013_Q3.csv", stringsAsFactors = FALSE)
@@ -76,12 +78,9 @@ WG_2018_Q3 <- read.csv("WG_2018_Q3.csv", stringsAsFactors = FALSE)
 WG_2018_Q4 <- read.csv("WG_2018_Q4.csv", stringsAsFactors = FALSE)
 
 
-```
-
 # WN file manipulations
 Remove duplicates that meet the criteria that all variables are the same.
 ```{r}
-# WN
 WN_2013_Q1 <- WN_2013_Q1 %>% distinct()
 WN_2013_Q2 <- WN_2013_Q2 %>% distinct()
 WN_2013_Q3 <- WN_2013_Q3 %>% distinct()
@@ -295,12 +294,9 @@ rm(WN_2018_Q1)
 rm(WN_2018_Q2)
 rm(WN_2018_Q3)
 rm(WN_2018_Q4)
-
-
 ```
 
 Create output
 ```{r}
 write.csv(WN_merged,file="WN_merged.csv")
 ```
-
