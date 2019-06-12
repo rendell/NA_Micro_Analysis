@@ -9,9 +9,6 @@ setwd("~/CBS NA/Berdrijsregister")
 
 Read in data. Data obtained from Jose. 
 ```{r}
-meta <- read.csv("2013_2018.csv", stringsAsFactors = FALSE)
-# Change from factor to numerical
-meta$CohierCode <- as.integer(meta$CohierCode)
 
 # WN
 WN_2013_Q1 <- read.csv("WN_2013_Q1.csv", stringsAsFactors = FALSE)
@@ -43,6 +40,8 @@ WN_2018_Q1 <- read.csv("WN_2018_Q1.csv", stringsAsFactors = FALSE)
 WN_2018_Q2 <- read.csv("WN_2018_Q2.csv", stringsAsFactors = FALSE)
 WN_2018_Q3 <- read.csv("WN_2018_Q3.csv", stringsAsFactors = FALSE)
 WN_2018_Q4 <- read.csv("WN_2018_Q4.csv", stringsAsFactors = FALSE)
+
+DRH <- read.csv("DRH2009-2018.csv")
 ```
 
 # WG
@@ -81,36 +80,6 @@ WG_2018_Q4 <- read.csv("WG_2018_Q4.csv", stringsAsFactors = FALSE)
 # WN file manipulations
 Remove duplicates that meet the criteria that all variables are the same.
 ```{r}
-WN_2013_Q1 <- WN_2013_Q1 %>% distinct()
-WN_2013_Q2 <- WN_2013_Q2 %>% distinct()
-WN_2013_Q3 <- WN_2013_Q3 %>% distinct()
-WN_2013_Q4 <- WN_2013_Q4 %>% distinct()
-
-WN_2014_Q1 <- WN_2014_Q1 %>% distinct()
-WN_2014_Q2 <- WN_2014_Q2 %>% distinct()
-WN_2014_Q3 <- WN_2014_Q3 %>% distinct()
-WN_2014_Q4 <- WN_2014_Q4 %>% distinct()
-
-WN_2015_Q1 <- WN_2015_Q1 %>% distinct()
-WN_2015_Q2 <- WN_2015_Q2 %>% distinct()
-WN_2015_Q3 <- WN_2015_Q3 %>% distinct()
-WN_2015_Q4 <- WN_2015_Q4 %>% distinct()
-
-WN_2016_Q1 <- WN_2016_Q1 %>% distinct()
-WN_2016_Q2 <- WN_2016_Q2 %>% distinct()
-WN_2016_Q3 <- WN_2016_Q3 %>% distinct()
-WN_2016_Q4 <- WN_2016_Q4 %>% distinct()
-
-WN_2017_Q1 <- WN_2017_Q1 %>% distinct()
-WN_2017_Q2 <- WN_2017_Q2 %>% distinct()
-WN_2017_Q3 <- WN_2017_Q3 %>% distinct()
-WN_2017_Q4 <- WN_2017_Q4 %>% distinct()
-
-WN_2018_Q1 <- WN_2018_Q1 %>% distinct()
-WN_2018_Q2 <- WN_2018_Q2 %>% distinct()
-WN_2018_Q3 <- WN_2018_Q3 %>% distinct()
-WN_2018_Q4 <- WN_2018_Q4 %>% distinct()
-
 WN_2013_Q1$Period <- "2013.01"
 WN_2013_Q2$Period <- "2013.02"
 WN_2013_Q3$Period <- "2013.03"
@@ -140,110 +109,7 @@ WN_2018_Q1$Period <- "2018.01"
 WN_2018_Q2$Period <- "2018.02"
 WN_2018_Q3$Period <- "2018.03"
 WN_2018_Q4$Period <- "2018.04"
-```
 
-Create subset of meta
-```{r}
-meta_subset <- meta[c("Sector_Code_SVB",
-                                          "Rechtsvorm",
-                                          "Persoonsnr",
-                                          "Fiscale_Eenheid",
-                                          "Promising_Sector",
-                                          "Gac_code_SVB",
-                                          "GIS_adres_SVB",
-                                          "X_coord_SVB",
-                                          "Y_coord_SVB",
-                                          "Region",
-                                          "Aruba_ISIC_CBS",
-                                          "ISIC_rev4_CBS",
-                                          "Tourism_TSA",
-                                          "CohierCode"
-                                          )]
-```
-
-test left merge
-```{r}
-WN_2013_Q1 <- left_join(WN_2013_Q1,meta_subset,
-                        by=c("Code"="CohierCode")
-                        )
-WN_2013_Q2 <- left_join(WN_2013_Q2,meta_subset,
-                        by=c("Code"="CohierCode")
-                        )
-WN_2013_Q3 <- left_join(WN_2013_Q3,meta_subset,
-                        by=c("Code"="CohierCode")
-                        )
-WN_2013_Q4 <- left_join(WN_2013_Q4,meta_subset,
-                        by=c("Code"="CohierCode")
-                        )
-
-WN_2014_Q1 <- left_join(WN_2014_Q1,meta_subset,
-                        by=c("Code"="CohierCode")
-                        )
-WN_2014_Q2 <- left_join(WN_2014_Q2,meta_subset,
-                        by=c("Code"="CohierCode")
-                        )
-WN_2014_Q3 <- left_join(WN_2014_Q3,meta_subset,
-                        by=c("Code"="CohierCode")
-                        )
-WN_2014_Q4 <- left_join(WN_2014_Q4,meta_subset,
-                        by=c("Code"="CohierCode")
-                        )
-
-WN_2015_Q1 <- left_join(WN_2015_Q1,meta_subset,
-                        by=c("Code"="CohierCode")
-                        )
-WN_2015_Q2 <- left_join(WN_2015_Q2,meta_subset,
-                        by=c("Code"="CohierCode")
-                        )
-WN_2015_Q3 <- left_join(WN_2015_Q3,meta_subset,
-                        by=c("Code"="CohierCode")
-                        )
-WN_2015_Q4 <- left_join(WN_2015_Q4,meta_subset,
-                        by=c("Code"="CohierCode")
-                        )
-
-WN_2016_Q1 <- left_join(WN_2016_Q1,meta_subset,
-                        by=c("Code"="CohierCode")
-                        )
-WN_2016_Q2 <- left_join(WN_2016_Q2,meta_subset,
-                        by=c("Code"="CohierCode")
-                        )
-WN_2016_Q3 <- left_join(WN_2016_Q3,meta_subset,
-                        by=c("Code"="CohierCode")
-                        )
-WN_2016_Q4 <- left_join(WN_2016_Q4,meta_subset,
-                        by=c("Code"="CohierCode")
-                        )
-
-WN_2017_Q1 <- left_join(WN_2017_Q1,meta_subset,
-                        by=c("Code"="CohierCode")
-                        )
-WN_2017_Q2 <- left_join(WN_2017_Q2,meta_subset,
-                        by=c("Code"="CohierCode")
-                        )
-WN_2017_Q3 <- left_join(WN_2017_Q3,meta_subset,
-                        by=c("Code"="CohierCode")
-                        )
-WN_2017_Q4 <- left_join(WN_2017_Q4,meta_subset,
-                        by=c("Code"="CohierCode")
-                        )
-
-WN_2018_Q1 <- left_join(WN_2018_Q1,meta_subset,
-                        by=c("Code"="CohierCode")
-                        )
-WN_2018_Q2 <- left_join(WN_2018_Q2,meta_subset,
-                        by=c("Code"="CohierCode")
-                        )
-WN_2018_Q3 <- left_join(WN_2018_Q3,meta_subset,
-                        by=c("Code"="CohierCode")
-                        )
-WN_2018_Q4 <- left_join(WN_2018_Q4,meta_subset,
-                        by=c("Code"="CohierCode")
-                        )
-```
-
-Bin rows
-```{r}
 WN_merged <- bind_rows(WN_2013_Q1,
                        WN_2013_Q2,
                        WN_2013_Q3,
@@ -294,9 +160,61 @@ rm(WN_2018_Q1)
 rm(WN_2018_Q2)
 rm(WN_2018_Q3)
 rm(WN_2018_Q4)
+
+WN_merged <- WN_merged %>% distinct()
 ```
 
-Create output
+```{r}
+meta <- read.csv("2013_2018.csv", stringsAsFactors = FALSE)
+```
+
+
+Create subset of meta
+```{r}
+meta_subset <- meta[c("Sector_Code_SVB",
+                                          "Rechtsvorm",
+                                          "Persoonsnr",
+                                          "Fiscale_Eenheid",
+                                          "Promising_Sector",
+                                          "Gac_code_SVB",
+                                          "GIS_adres_SVB",
+                                          "X_coord_SVB",
+                                          "Y_coord_SVB",
+                                          "Region",
+                                          "Aruba_ISIC_CBS",
+                                          "ISIC_rev4_CBS",
+                                          "Tourism_TSA",
+                                          "CohierCode"
+                                          )]
+```
+
+```{r}
+DRH$Geslacht            <- as.character(DRH$Geslacht)
+DRH$burgelijke_staat    <- as.character(DRH$burgelijke_staat)
+DRH$Maandloon           <- as.integer(DRH$Maandloon)
+DRH$Werkweek            <- as.integer(DRH$Werkweek)
+DRH$Aanv_DVB            <- as.character(DRH$Aanv_DVB)
+DRH$Omschrijving        <- as.character(DRH$Omschrijving)
+DRH$Klasse              <- as.integer(DRH$Klasse)
+DRH$Code                <- as.character(DRH$Code)
+WN_merged$Code          <- as.character(WN_merged$Code)
+DRH$Datum_Inschrijving  <- as.character(DRH$Datum_Inschrijving)
+DRH$Period              <- as.character(DRH$Periode)
+DRH                     <- DRH[,-1]
+
+WN_merged               <- bind_rows(WN_merged,DRH)
+rm(DRH)
+```
+
+
+Left merge
+```{r}
+WN_merged <- left_join(WN_merged,meta_subset,
+                        by=c("Code"="CohierCode"))
+```
+
+
+Create output csv.
 ```{r}
 write.csv(WN_merged,file="WN_merged.csv")
 ```
