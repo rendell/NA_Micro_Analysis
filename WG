@@ -7,6 +7,12 @@ Set working directory
 setwd("~/CBS NA/Berdrijsregister")
 ```
 
+```{r}
+library(dplyr)
+library(tidyr)
+```
+
+
 Read in data. Data obtained from Jose. 
 ```{r}
 
@@ -218,25 +224,26 @@ WN_merged <- left_join(WN_merged,meta_subset,
 * Attempt at queries
 Median Maandloon ("Maandloon") per economic activity ("Economic_activity_Rev_4") per quarter ("Period")
 ```{r}
-WN_median <- WN_merged[c("Maandloon",
-                         "Period",
-                         "Economic_Activity_Rev_4"
-                       )] %>%
-  group_by(Economic_Activity_Rev_4,Period)%>%
-  summarise(Econ=first(Economic_Activity_Rev_4),
-            Period=first(Period),
-            Maandl=median(Maandloon))
+WN_median <- WN_merged %>%
+  select(Maandloon,
+         Period,
+         Economic_Activity_Rev_4) %>%
+  group_by(Period,
+           Economic_Activity_Rev_4)%>%
+  summarise(Medianwage=median(Maandloon, na.rm=TRUE)
+  )
 
+# Remove Na
+WN_median <- WN_median %>% filter( !is.na(Economic_Activity_Rev_4))
 
-           
-           ,Economic_Activity_Rev_4)%>%
-  summarise(Maandl=median(Maandloon))
+# Long to wide format
+WN_median <-spread(WN_median, Period, Medianwage)
 ```
 
 
 
 Create output csv.
 ```{r}
-write.csv(WN_merged,file="WN_merged.csv")
+write.csv(WN_median,file="WN_median.csv")
 ```
 
