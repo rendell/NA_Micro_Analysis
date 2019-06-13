@@ -164,6 +164,7 @@ rm(WN_2018_Q4)
 WN_merged <- WN_merged %>% distinct()
 ```
 
+Read in data file with meta information.
 ```{r}
 meta <- read.csv("2013_2018.csv", stringsAsFactors = FALSE)
 ```
@@ -172,6 +173,7 @@ meta <- read.csv("2013_2018.csv", stringsAsFactors = FALSE)
 Create subset of meta
 ```{r}
 meta_subset <- meta[c("Sector_Code_SVB",
+                      "Economic_Activity_Rev_4",
                                           "Rechtsvorm",
                                           "Persoonsnr",
                                           "Fiscale_Eenheid",
@@ -213,8 +215,28 @@ WN_merged <- left_join(WN_merged,meta_subset,
                         by=c("Code"="CohierCode"))
 ```
 
+* Attempt at queries
+Median Maandloon ("Maandloon") per economic activity ("Economic_activity_Rev_4") per quarter ("Period")
+```{r}
+WN_median <- WN_merged[c("Maandloon",
+                         "Period",
+                         "Economic_Activity_Rev_4"
+                       )] %>%
+  group_by(Economic_Activity_Rev_4,Period)%>%
+  summarise(Econ=first(Economic_Activity_Rev_4),
+            Period=first(Period),
+            Maandl=median(Maandloon))
+
+
+           
+           ,Economic_Activity_Rev_4)%>%
+  summarise(Maandl=median(Maandloon))
+```
+
+
 
 Create output csv.
 ```{r}
 write.csv(WN_merged,file="WN_merged.csv")
 ```
+
