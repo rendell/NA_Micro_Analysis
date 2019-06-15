@@ -255,13 +255,15 @@ library(sp)
   
 aruba <-qmplot(X_coord_SVB, Y_coord_SVB,
        data = WN_merged,
-       colour = I('red'),
+       colour = "bw",
        size = I(3),
        darken = .2,
        maptype = "terrain",
-       zoom=11
+       zoom=11,
+       legend="topright"
        )
 aruba
+
 ```
 
 
