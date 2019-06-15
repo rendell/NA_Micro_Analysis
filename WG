@@ -241,9 +241,33 @@ WN_median <-spread(WN_median, Period, Medianwage)
 ```
 
 
+# Mapping
+```{r}
+library(sp)
+# map_data<- readRDS("gadm36_ABW_0_sp.rds")
+
+# map_data <- 
+#  plot(map)+
+#  geom_point(data=WN_merged, 
+#             aes(x=X_coord_SVB, y=Y_coord_SVB),
+#             colour="red", 
+#             fill="red",pch=21, size=5, alpha=I(0.7), na.rm=TRUE)
+  
+aruba <-qmplot(X_coord_SVB, Y_coord_SVB,
+       data = WN_merged,
+       colour = I('red'),
+       size = I(3),
+       darken = .2,
+       maptype = "terrain",
+       zoom=11
+       )
+aruba
+```
+
+
+
 
 Create output csv.
 ```{r}
 write.csv(WN_median,file="WN_median.csv")
 ```
-
