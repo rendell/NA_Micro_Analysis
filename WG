@@ -221,7 +221,8 @@ WN_merged <- left_join(WN_merged,meta_subset,
                         by=c("Code"="CohierCode"))
 ```
 
-* Attempt at queries
+* queries
+** 1
 Median Maandloon ("Maandloon") per economic activity ("Economic_activity_Rev_4") per quarter ("Period")
 ```{r}
 WN_median <- WN_merged %>%
@@ -233,43 +234,48 @@ WN_median <- WN_merged %>%
   summarise(Medianwage=median(Maandloon, na.rm=TRUE)
   )
 
-# Remove Na
-WN_median <- WN_median %>% filter( !is.na(Economic_Activity_Rev_4))
-
 # Long to wide format
 WN_median <-spread(WN_median, Period, Medianwage)
+
+WN_median_sex <-spread(WN_median_sex, Period, Medianwage)
+
+# Remove Na
+WN_median <- WN_median %>% filter( !is.na(Economic_Activity_Rev_4))
+WN_median_sex <- WN_median_sex %>% filter( !is.na(Economic_Activity_Rev_4))
 ```
 
+** 2
+```{r}
+WN_median_sex <- WN_merged %>%
+  select(Geslacht,
+         Maandloon,
+         Period,
+         Economic_Activity_Rev_4) %>%
+  group_by(Period,
+           Economic_Activity_Rev_4,Geslacht)%>%
+  summarise(Medianwage=median(Maandloon, na.rm=TRUE)
+  )
+
+# Long to wide format
+WN_median_sex <-spread(WN_median_sex, Period, Medianwage)
+
+# Remove Na
+WN_median_sex <- WN_median_sex %>% filter( !is.na(Economic_Activity_Rev_4))
+```
 
 # Mapping
 ```{r}
-library(sp)
-# map_data<- readRDS("gadm36_ABW_0_sp.rds")
-
-# map_data <- 
-#  plot(map)+
-#  geom_point(data=WN_merged, 
-#             aes(x=X_coord_SVB, y=Y_coord_SVB),
-#             colour="red", 
-#             fill="red",pch=21, size=5, alpha=I(0.7), na.rm=TRUE)
+WN_merged_2018 <- filter(WN_merged, Period=="2018.04")
   
 aruba <-qmplot(X_coord_SVB, Y_coord_SVB,
-       data = WN_merged,
-       colour = "bw",
-       size = I(3),
-       darken = .2,
-       maptype = "terrain",
+       data = WN_merged_2018,
+       size = I(5),
+       color = I("purple"),
+       alpha=I(.1),
        zoom=11,
-       legend="topright"
+       legend="topright",
+       
        )
-aruba
+aruba + ggtitle("Aruba")+ geom_jitter()
 
-```
-
-
-
-
-Create output csv.
-```{r}
-write.csv(WN_median,file="WN_median.csv")
 ```
