@@ -1,14 +1,14 @@
 ---
 title: "Dekking file by Aruba ISIC 2017"
 output: 
-  pdf_document: default
-  html_document: default
   word_document: default
+  html_document: default
+  pdf_document: default
 ---
 #Load data SVB Raw
 ```{r}
 library(dplyr)
-setwd("C:/Users/Jose/Desktop/wn/WN_CSV/2017")
+setwd("~/CBS NA/Jose_2017")
 
 wn2017q1 <-read.csv("2017q1.csv",stringsAsFactors = FALSE)
 wn2017q2 <-read.csv("2017q2.csv",stringsAsFactors = FALSE)
@@ -71,7 +71,6 @@ companies2017$Aruba_ISIC_CBS <- factor(companies2017$Aruba_ISIC_CBS)
 companies2017 <- companies2017 %>%
                       group_by(Aruba_ISIC_CBS) %>%
                       mutate(cum_Maandloon_Year = cumsum(Maandloon_Year))
-
 ```
 
 
@@ -93,6 +92,7 @@ companies2017 <- companies2017 %>%
 
 ```{r}
 library(ggplot2)
+library(treemapify)
 
 comp <- ggplot(companies20171, aes(x=Economic_Activity_Rev_4, y=id, size= Maandloon_Year))
 
@@ -102,26 +102,6 @@ comp1
 
 ```
 
-
-```{r}
-
-ggplot2::ggplot(companies20171, ggplot2::aes(area = Maandloon_Year, 
-                                            fill = Economic_Activity_Rev_4,
-                                            label=Economic_Activity_Rev_4)) +geom_treemap()+ ggtitle("Nominal GDP 2017") + geom_treemap_text()
-
-
-```
-
-```{r}
-
-ggplot2::ggplot(companies20171, ggplot2::aes(area = Maandloon_Year, 
-                                            fill = Economic_Activity_Rev_4,
-                                            label= Aruba_ISIC_CBS)) +geom_treemap()+ ggtitle("Nominal GDP 2017") + geom_treemap_text()
-
-```
-
-
-
 ```{r}
 ggplot2::ggplot(companies20171, ggplot2::aes(area = Maandloon_Year, 
                                             fill = Economic_Activity_Rev_4,
@@ -130,7 +110,6 @@ ggplot2::ggplot(companies20171, ggplot2::aes(area = Maandloon_Year,
 geom_treemap()+ geom_treemap_text() + geom_treemap_subgroup_border(colour="grey") + geom_treemap_subgroup_text(fontface = "bold", colour="#f0f0f0", alpha=0.7, place="bottomleft") + labs(title="Wages by companies, 2017", caption="Source: SVB Aruba|Centraal Bureau voor Statistiek") 
 
 ```
-
 
 #Produce csv File
 ```{r}
